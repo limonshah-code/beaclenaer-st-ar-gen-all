@@ -135,11 +135,13 @@
 #         run: |
 #           echo "::error::Article generation workflow failed"
 #           echo "Check the logs above for detailed error information"
+
+
 name: Generate Articles
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # Runs every 2 hours UTC
+    - cron: '0 */2 * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -214,12 +216,9 @@ jobs:
         id: check_changes
         run: |
           if git diff --quiet && git diff --staged --quiet; then
-            echo "No changes"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "Changes found"
-            git status
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit and push changes
