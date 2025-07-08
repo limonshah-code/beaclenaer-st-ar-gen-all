@@ -139,9 +139,8 @@ name: Generate Articles
 
 on:
   schedule:
-    # Run every 2 hours (in UTC)
-  - cron: '*/5 * * * *'
-  workflow_dispatch:  # Allow manual trigger from GitHub UI
+    - cron: '0 */2 * * *'  # Runs every 2 hours UTC
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -215,9 +214,13 @@ jobs:
         id: check_changes
         run: |
           if git diff --quiet && git diff --staged --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes found"
+            git status
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Commit and push changes
         if: steps.check_changes.outputs.changed == 'true'
