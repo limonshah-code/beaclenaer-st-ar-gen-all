@@ -1,3 +1,4 @@
+---
 publishDate: 2025-07-20T00:00:00Z
 title: How To Clean Bream
 excerpt: Learn how to clean bream efficiently and safely for a delicious meal. This guide covers scaling, gutting, and filleting bream with simple steps.
